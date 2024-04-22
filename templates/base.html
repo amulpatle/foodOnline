@@ -34,7 +34,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{%  static 'js/modernizr.js' %}"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
-
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
     <style>
       body,
       .main-section p,
@@ -49,12 +49,12 @@
 
   <body>
     <!-- LOAD NAVBAR HERE -->
-     {% include 'includes/navbar.html' %}
+    {% include 'includes/navbar.html' %}
     <!-- LOAD CONTENT HERE -->
-     {%block content %}
-     <!-- content goes here -->
-     {% endblock %}
+    {%block content %}
+    <!-- content goes here -->
+    {% endblock %}
     <!-- LOAD FOOTER HERE -->
-     {% include 'includes/footer.html' %}
-      
- 
+    {% include 'includes/footer.html' %}
+  </body>
+</html>
