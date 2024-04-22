@@ -71,3 +71,13 @@ def registerVendor(request):
     
     
     return render(request,"accounts/registerVendor.html",context)
+
+
+def login(request):
+    return render(request,'accounts/login.html')
+
+def logout(request):
+    return
+
+def dashboard(request):
+    return
