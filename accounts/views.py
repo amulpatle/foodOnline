@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from accounts.utils import detectUser
+from accounts.utils import detectUser, send_verification_email
 from .forms import UserForm
 from .models import User, UserProfile
 from django.contrib import messages,auth
@@ -32,7 +32,7 @@ def check_role_customer(user):
 def registerUser(request):
     if request.user.is_authenticated:
         messages.warning(request,'Yor are already logged in')
-        return redirect('dashboard')
+        return redirect('custDashboard')
     elif request.method == 'POST':
         print(request.POST)
         form = UserForm(request.POST)
@@ -86,6 +86,9 @@ def registerVendor(request):
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
+            
+            
+            send_verification_email(request,user)
             messages.success(request,'Your account has been regstered successfully! Please wait for the approval')
             return redirect('registerVendor')
         else:
@@ -103,6 +106,10 @@ def registerVendor(request):
     
     return render(request,"accounts/registerVendor.html",context)
 
+
+def activate(request,uidb64,token):
+    return 
+    
 
 def login(request):
     
