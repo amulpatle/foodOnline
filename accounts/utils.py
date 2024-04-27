@@ -5,6 +5,16 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 
+
+
+# this is form wscube tech
+
+
+
+
+
+# thi is end here
+
 def detectUser(user):
     if  user.role == 1:
         redirectUrl = 'vendorDashboard'
@@ -16,16 +26,45 @@ def detectUser(user):
         redirectUrl = '/admin'
         return redirectUrl
     
+    
+# def send_verification_email(request,user):
+#     current_site = get_current_site(request)
+#     mail_subject = 'please activate your account'
+#     domain = current_site.domain
+#     message = render_to_string('accounts/emails/account_verification_email.html',{
+#         'user':user,
+#         'domain':current_site,
+#         'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+#         'token':default_token_generator.make_token(user),
+#     })
+#     to_email = user.email
+#     mail = EmailMessage(mail_subject,message,to=[to_email])
+#     mail.send()
+#     print("done now you should wait for a while")
+
+
+from django.core.mail import send_mail
+
+
+
+
+
 def send_verification_email(request,user):
     current_site = get_current_site(request)
     mail_subject = 'please activate your account'
-    
+    domain = current_site.domain
     message = render_to_string('accounts/emails/account_verification_email.html',{
         'user':user,
         'domain':current_site,
         'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-        'token':default_token_generator.make_token(user)
+        'token':default_token_generator.make_token(user),
     })
     to_email = user.email
-    mail = EmailMessage(mail_subject,message,to=[to_email])
-    mail.send()
+    send_mail(
+    mail_subject,
+    message,
+    "mohitpatle322@gmail.com",
+    [to_email],
+    fail_silently=False,
+    )
+    print("done now you should wait for a while")
