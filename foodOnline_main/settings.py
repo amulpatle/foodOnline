@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'accounts',
     'vendor',
 ]
@@ -144,11 +143,28 @@ MESSAGE_TAGS = {
 }
 
 # Email configuration
+
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT',cast=int)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLE = True
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "tester.gml.69@gmail.com"
+EMAIL_HOST_PASSWORD = "aebhuvbfegtjdmdm"
+EMAIL_USE_TLS = True  # Corrected setting name
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT',cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLE = True
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# authentication 
+
+# AUTHENTICATION_BACKENDS = (
+#     'aullauth.account_backends.AuthenticationBackend',
+
+# )
+
+# SITE_ID = 1
+# LOGIN_REDIRECT_URL = '/'
