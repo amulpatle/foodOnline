@@ -157,6 +157,7 @@ EMAIL_HOST_USER = "tester.gml.69@gmail.com"
 EMAIL_HOST_PASSWORD = "aebhuvbfegtjdmdm"
 EMAIL_USE_TLS = True  # Corrected setting name
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <tester.gml.69@gmail.com'
 
 
 # authentication 
