@@ -52,7 +52,10 @@ def registerUser(request):
             user.save()
             
             # Send verification email
-            send_verification_email(request,user)
+            mail_subject = 'Please activate your account.'
+            email_template = 'accounts/emails/account_varification_email.html'
+            
+            send_verification_email(request,user,mail_subject,email_template)
             messages.success(request,'Your account has been regstered successfully') 
             return redirect('registerUser')
         else:
@@ -90,7 +93,10 @@ def registerVendor(request):
             vendor.save()
             
             
-            send_verification_email(request,user)
+            mail_subject = 'Please activate your account.'
+            email_template = 'accounts/emails/account_varification_email.html'
+            
+            send_verification_email(request,user,mail_subject,email_template)
             messages.success(request,'Your account has been regstered successfully! Please wait for the approval')
             return redirect('registerVendor')
         else:
@@ -174,10 +180,25 @@ def vendorDashboard(request):
 
 
 def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email__exact=email)
+            mail_subject = 'Reset your password'
+            email_template = 'accounts/emails/reset_password_email.html'
+            
+            send_verification_email(request,user,mail_subject,email_template)
+            messages.success(request,'Password reset link has beed sent to your email address.')
+            return redirect('login')
+        else:
+            messages.error(request,'Account does not exist.')
+            return redirect('forgot_password')
     return render(request,'accounts/forgot_password.html')
 
 
 def reset_password_validate(request,uidb64,token):
+    # validate the user by decoding the token and user pk
     return 
 
 def reset_password(request):
