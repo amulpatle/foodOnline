@@ -142,6 +142,7 @@ def login(request):
         return redirect('myAccount')
     
     elif request.method == 'POST':
+        print(request.POST)
         email = request.POST['email']
         password = request.POST['password']
         
@@ -190,6 +191,7 @@ def forgot_password(request):
             
             send_verification_email(request,user,mail_subject,email_template)
             messages.success(request,'Password reset link has beed sent to your email address.')
+            print(request.POST)
             return redirect('login')
         else:
             messages.error(request,'Account does not exist.')
@@ -199,7 +201,34 @@ def forgot_password(request):
 
 def reset_password_validate(request,uidb64,token):
     # validate the user by decoding the token and user pk
-    return 
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User._default_manager.get(pk=uid)
+    except(TypeError,ValueError,OverflowError,User.DoesNotExist):
+        user = None
+    
+    if user is not None and default_token_generator.check_token(user,token):
+        request.session['uid'] = uid
+        messages.info(request,'Please reset your password')
+        return redirect('reset_password')
+    else:
+        messages.info(request,'This link has been expired!')
+        return redirect('myAccount')
 
 def reset_password(request):
-    return render(request,'reset_password.html')
+    if request.method == 'POST':
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        
+        if password == confirm_password:
+            pk = request.session.get('uid')
+            user = User.objects.get(pk=pk)
+            user.set_password(password)
+            user.is_active = True
+            user.save()
+            messages.success(request,'Password reset successful')
+            return redirect('login')
+        else:
+            messages.error(request,'Password do not match')
+            return redirect('reset_password')
+    return render(request,'accounts/emails/reset_password.html')
