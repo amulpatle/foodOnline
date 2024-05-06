@@ -53,7 +53,7 @@ def registerUser(request):
             
             # Send verification email
             mail_subject = 'Please activate your account.'
-            email_template = 'accounts/emails/account_varification_email.html'
+            email_template = 'accounts/emails/account_verification_email.html'
             
             send_verification_email(request,user,mail_subject,email_template)
             messages.success(request,'Your account has been regstered successfully') 
@@ -77,7 +77,7 @@ def registerVendor(request):
     elif request.method == 'POST':
         form = UserForm(request.POST)
         v_form = VendorForm(request.POST,request.FILES)
-        if form.is_valid and v_form.is_valid :
+        if form.is_valid() and v_form.is_valid() :
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             username = form.cleaned_data['username']
@@ -94,7 +94,7 @@ def registerVendor(request):
             
             
             mail_subject = 'Please activate your account.'
-            email_template = 'accounts/emails/account_varification_email.html'
+            email_template = 'accounts/emails/account_verification_email.html'
             
             send_verification_email(request,user,mail_subject,email_template)
             messages.success(request,'Your account has been regstered successfully! Please wait for the approval')
