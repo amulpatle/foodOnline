@@ -32,3 +32,4 @@ class Migration(migrations.Migration):
             ],
         ),
     ]
+# for prctice of github
