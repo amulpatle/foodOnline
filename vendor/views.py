@@ -24,8 +24,9 @@ def vprofile(request):
         else :
             print(profile_form.errors)
             print(vendor_form.errors)
-    profile_form = UserProfileForm(instance=profile)
-    vendor_form = VendorForm(instance=vendor)
+    else:
+        profile_form = UserProfileForm(instance=profile)
+        vendor_form = VendorForm(instance=vendor)
     context = {
         'profile_form':profile_form,
         'vendor_form':vendor_form,
