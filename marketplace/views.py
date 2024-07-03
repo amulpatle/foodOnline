@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from vendor.models import Vendor
@@ -27,3 +28,7 @@ def vendor_detail(reqeust,vendor_slug):
         'categories':categories,
     }
     return render(reqeust,'marketplace/vendor_detail.html',context)
+
+
+def add_to_cart(request,food_id):
+    return HttpResponse('Testing')
