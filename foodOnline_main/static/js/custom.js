@@ -69,8 +69,17 @@ $(document).ready(function(){
         
         success: function(response){
             console.log(response)
-            $('#cart_counter').html(response.cart_counter['cart_count']);
-            $('#qty-'+food_id).html(response.qty)
+            if(response.status == 'login_required'){
+                swal(response.message,'','info').then(function(){
+                    window.location = '/login';
+                })
+            }else if(response.status == 'Failed'){
+                swal(response.message,'','error')
+            }
+            else{
+                $('#cart_counter').html(response.cart_counter['cart_count']);
+                $('#qty-'+food_id).html(response.qty)
+            }
         }
     })
   })
@@ -95,8 +104,13 @@ $(document).ready(function(){
         
         success: function(response){
             console.log(response)
-            if(response.status == 'Failed'){
-                console.log('reaise the error message')
+            if(response.status == 'login_required'){
+                swal(response.message,'','info').then(function(){
+                    window.location = '/login';
+                })
+            }
+            else if(response.status == 'Failed'){
+                swal(response.message,'','info')
             }else{
                 $('#cart_counter').html(response.cart_counter['cart_count']);
                 $('#qty-'+food_id).html(response.qty)
