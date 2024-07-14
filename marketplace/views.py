@@ -7,6 +7,7 @@ from menu.models import Category, FoodItem
 from django.db.models import Prefetch
 from .models import Cart
 from django.contrib.auth.decorators import login_required
+
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True,user__is_active=True)
     vendor_count = vendors.count()
@@ -92,7 +93,7 @@ def decrease_cart(request,food_id):
     
 @login_required(login_url = 'login')
 def cart(request):
-    cart_items = Cart.objects.filter(user=request.user)
+    cart_items = Cart.objects.filter(user=request.user).order_by('created_at')
     context = {
         'cart_items':cart_items,
     }
