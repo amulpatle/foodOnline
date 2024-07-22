@@ -70,6 +70,7 @@ TEMPLATES = [
                 'accounts.context_processors.get_vendor',
                 'marketplace.context_processor.get_cart_counter',
                 'marketplace.context_processor.get_cart_amounts',
+                'accounts.context_processors.get_google_api',
                 
             ],
         },
@@ -166,6 +167,7 @@ EMAIL_USE_TLS = True  # Corrected setting name
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <tester.gml.69@gmail.com'
 
+GOOGLE_API_KEY = 'AIzaSyDg12YjFWqdXbxGAn1MsSkj2fJmJVrJxZo'
 
 # authentication 
 

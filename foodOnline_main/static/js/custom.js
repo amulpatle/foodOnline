@@ -6,7 +6,7 @@ function initAutoComplete() {
         {
             types: ['geocode', 'establishment'],
             // Set the default country code, e.g., 'lt' for Lithuania
-            componentRestrictions: { 'country': ['lt'] },
+            componentRestrictions: { 'country': ['in'] },
         }
     );
  
