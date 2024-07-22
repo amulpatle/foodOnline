@@ -115,4 +115,11 @@ def delete_cart(request,cart_id):
         
 
 def search(request):
-    return HttpResponse("search page")
+    address = request.GET['address']
+    latitude = request.GET['lat']
+    longitude = request.GET['lng']
+    redius = request.GET['redius']
+    r_name = request.GET['rest_name']
+   
+    
+    return render(request,'marketplace/listings.html')
