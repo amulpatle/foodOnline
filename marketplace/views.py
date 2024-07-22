@@ -7,6 +7,8 @@ from menu.models import Category, FoodItem
 from django.db.models import Prefetch
 from .models import Cart
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+
 
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True,user__is_active=True)
@@ -120,8 +122,13 @@ def search(request):
     longitude = request.GET['lng']
     redius = request.GET['redius']
     keyword = request.GET['keyword']
-   
-    vendors = Vendor.objects.filter(vendor_name__icontains=keyword,is_approved=True,user__is_active=True)
+    
+    fetch_vendors_by_fooditems = FoodItem.objects.filter(food_title__icontains=keyword,is_availabe=True).values_list('vendor',flat=True)
+    print(fetch_vendors_by_fooditems)
+    
+    vendors = Vendor.objects.filter(Q(id__in=fetch_vendors_by_fooditems) | Q(vendor_name__icontains=keyword,is_approved=True,user__is_active=True))
+    
+    # vendors = Vendor.objects.filter()
     vendor_count = vendors.count()
     context = {
         'vendors':vendors,
