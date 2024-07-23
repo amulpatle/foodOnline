@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'vendor',
     'menu',
     'marketplace',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +87,8 @@ WSGI_APPLICATION = 'foodOnline_main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE':'django.contrib.gis.db.backends.postgis',
         'NAME': config('DB_NAME'),
         'USER':config('DB_USER'),
         'PASSWORD':config('DB_PASSWORD'),
@@ -178,3 +181,27 @@ GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 
 # SITE_ID = 1
 # LOGIN_REDIRECT_URL = '/'
+
+
+
+
+# this is code from ratan kumar
+
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# # Path to GDAL library and related files
+# os.environ['PATH'] = os.path.join(BASE_DIR, 'env/lib/python3.10/site-packages/osgeo') + ':' + os.environ['PATH']
+# os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env/lib/python3.10/site-packages/osgeo/data/proj') + ':' + os.environ['PATH']
+
+# # Path to the GDAL shared library file specific to Python
+# GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'env/lib/python3.10/site-packages/osgeo', '_gdal.cpython-310-x86_64-linux-gnu.so')
+
+
+
+# this is  the correct path setup for gdal
+# find path for --->PROJ_LIB and put here
+# GDAL_LIBRARY_PATH ---> linux use libgdal.so file and window's os use different so find that file using terminal . by using this command--->  find /usr -name "libgdal.so*"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.environ['PATH'] = os.path.join(BASE_DIR, 'env/lib/python3.10/site-packages/osgeo') + ':' + os.environ['PATH']
+os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, '/usr/share/proj/') + ':' + os.environ['PATH']
+GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, '/usr/lib/', 'libgdal.so')
