@@ -21,7 +21,7 @@
                                             {% for hour in opening_hours %}
                                             <tr>
                                                 <td><b>{{hour}}</b></td>
-                                                <td>{%if hour.is_closed %} closed {%else%} {{hour}} {{hour.from_hour}} {{hour.to_hour}} {%endif%}</td>
+                                                <td>{%if hour.is_closed %} closed {%else%}  {{hour.from_hour}} {{hour.to_hour}} {%endif%}</td>
                                                 <td><a href="#">Remove</a></td>
                                             </tr>
                                              {% endfor %}

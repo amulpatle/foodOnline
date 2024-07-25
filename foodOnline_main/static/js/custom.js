@@ -202,6 +202,7 @@ $(document).ready(function(){
         var is_closed = document.getElementById('id_is_closed').checked
         var csrf_token = $('input[name=csrfmiddlewaretoken]').val()
         var url = document.getElementById('add_hour_url').value
+
         console.log(day,from_hour,to_hour,is_closed,csrf_token)
 
 
@@ -213,9 +214,10 @@ $(document).ready(function(){
             condition = "day != '' && from_hour != '' && to_hour != ''"
         }
         if(eval(condition)){
+            console.log('msg1')
             $.ajax({
                 type:'POST',
-                url:url,
+                url: url,
                 data:{
                     'day':day,
                     'from_hour':from_hour,
@@ -223,14 +225,30 @@ $(document).ready(function(){
                     'is_closed':is_closed,
                     'csrfmiddlewaretoken':csrf_token,
                 },
+                
                 success:function(response){
-                    console.log(response)
+                    console.log('msg2')
+                    if(response.status == 'success'){
+                        if(response.is_closed == 'closed'){
+                        html = '<tr><td><b>'+response.day+'</b></td><td>Closed</td><td><a href="#">Remove</a></td></tr>';
+                        }else{
+                            html = '<tr><td><b>'+response.day+'</b></td><td>'+response.from_hour+' - '+response.to_hour+'</td><td><a href="#">Remove</a></td></tr>';
+                        }
+                        $(".opening_hours").append(html)
+                        document.getElementById("opening_hours").reset()
+                        console.log('msg3')
+                    }else{
+                        console.log(response.error)
+                        swal(response.message,'',"error")
+                    }
                 }
+                
             })
+            console.log('msg6')
         }else{
+            
             swal('Please fill all fields','', 'info')
         }
     })
 });
-
-// this is copied from someone commet sections      
+     
