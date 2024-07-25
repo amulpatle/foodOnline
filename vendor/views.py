@@ -1,10 +1,10 @@
 from django.shortcuts import redirect, render,get_object_or_404
 
 from menu.forms import CategoryForm,FoodItemForm
-from .forms import VendorForm
+from .forms import VendorForm,OpeningHourForm
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
-from .models import Vendor
+from .models import Vendor,OpeningHour
 from django.contrib import messages
 from menu.models import Category,FoodItem
 
@@ -191,4 +191,10 @@ def delete_food(request,pk=None):
     return redirect('fooditems_by_category',food.category.id)
 
 def opening_hours(request):
-    return render(request,'vendor/opening_hours.html')
+    opening_hours = OpeningHour.objects.filter(vendor=get_vendor(request))
+    form = OpeningHourForm()
+    context = {
+        'form':form,
+        'opening_hours':opening_hours,
+    }
+    return render(request,'vendor/opening_hours.html',context)
