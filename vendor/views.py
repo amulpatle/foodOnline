@@ -214,7 +214,7 @@ def add_opening_hours(request):
                     day = OpeningHour.objects.get(id=hour.id)
                     if day.is_closed:    
                         response = {'status':'success','id':hour.id,'day':day.get_day_display(),'is_closed':'closed'}
-                        print('getting error 1')
+                       
                     else:
                         response = {'status':'success','id':hour.id,'day':day.get_day_display(),'from_hour':hour.from_hour,'to_hour':hour.to_hour}
                     return JsonResponse(response)

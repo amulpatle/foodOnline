@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .context_processor import get_cart_counter,get_cart_amounts
-from vendor.models import Vendor
+from vendor.models import Vendor,OpeningHour
 from menu.models import Category, FoodItem
 from django.db.models import Prefetch
 from .models import Cart
@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.contrib.gis.geos import GEOSGeometry 
 from django.contrib.gis.measure import D  # ``D`` is a shortcut for 
 from django.contrib.gis.db.models.functions import Distance
+from datetime import date
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True,user__is_active=True)
     vendor_count = vendors.count()
@@ -29,6 +30,10 @@ def vendor_detail(request,vendor_slug):
             queryset = FoodItem.objects.filter(is_availabe=True)
         )
     )
+    opening_hour = OpeningHour.objects.filter(vendor=vendor).order_by('day', '-from_hour')
+    today_date = date.today()
+    today = today_date.isoweekday()
+    current_opening_hours = OpeningHour.objects.filter(vendor=vendor,day=today)
     if request.user.is_authenticated:
         cart_items = Cart.objects.filter(user=request.user)
     else:
@@ -37,6 +42,8 @@ def vendor_detail(request,vendor_slug):
         'vendor':vendor,
         'categories':categories,
         'cart_items':cart_items,
+        'opening_hour':opening_hour,
+        'current_opening_hours':current_opening_hours,
     }
     return render(request,'marketplace/vendor_detail.html',context)
 

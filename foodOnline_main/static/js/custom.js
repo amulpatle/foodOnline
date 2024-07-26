@@ -203,8 +203,7 @@ $(document).ready(function(){
         var csrf_token = $('input[name=csrfmiddlewaretoken]').val()
         var url = document.getElementById('add_hour_url').value
 
-        console.log(day,from_hour,to_hour,is_closed,csrf_token)
-
+        
 
         if(is_closed){
             is_closed = 'True'
@@ -214,7 +213,7 @@ $(document).ready(function(){
             condition = "day != '' && from_hour != '' && to_hour != ''"
         }
         if(eval(condition)){
-            console.log('msg1')
+            
             $.ajax({
                 type:'POST',
                 url: url,
@@ -227,7 +226,7 @@ $(document).ready(function(){
                 },
                 
                 success:function(response){
-                    console.log('msg2')
+                    
                     if(response.status == 'success'){
                         if(response.is_closed == 'closed'){
                         html = '<tr id="hour-'+response.id+'"><td><b>'+response.day+'</b></td><td>Closed</td><td><a href="#" class="remove_hour" data-url="/vendor/opening-hours/remove/'+response.id+'/">Remove</a></td></tr>';
@@ -236,7 +235,7 @@ $(document).ready(function(){
                         }
                         $(".opening_hours").append(html)
                         document.getElementById("opening_hours").reset()
-                        console.log('msg3')
+                        
                     }else{
                         console.log(response.error)
                         swal(response.message,'',"error")
