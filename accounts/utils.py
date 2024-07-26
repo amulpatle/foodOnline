@@ -30,7 +30,7 @@ def send_verification_email(request,user,mail_subject,mail_template):
     to_email = user.email
     mail = EmailMessage(mail_subject,message,from_email,to=[to_email])
     mail.send()
-    print("done now you should wait for a while")
+    # print("done now you should wait for a while")
 
 
 # from django.core.mail import send_mail

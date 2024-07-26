@@ -147,7 +147,7 @@ def login(request):
         return redirect('myAccount')
     
     elif request.method == 'POST':
-        print(request.POST)
+        # print(request.POST)
         email = request.POST['email']
         password = request.POST['password']
         
@@ -196,7 +196,7 @@ def forgot_password(request):
             
             send_verification_email(request,user,mail_subject,email_template)
             messages.success(request,'Password reset link has beed sent to your email address.')
-            print(request.POST)
+            # print(request.POST)
             return redirect('login')
         else:
             messages.error(request,'Account does not exist.')
