@@ -40,10 +40,14 @@
 
     <link rel="stylesheet" href="{% static 'css/custom.css' %}" />   
 
+    <!-- GOOGLE API KEY -->
     {% if '/' == request.path or '/vendor/profile/' == request.path %}
     <script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_API_KEY}}&loading=async&libraries=places&callback=initAutoComplete"  defer></script>
     {% endif %}
     
+     <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id={{PAYPAL_CLIENT_ID}}&currency=USD"></script>
+
 
     <script src="{% static 'js/custom.js' %}"></script>
     

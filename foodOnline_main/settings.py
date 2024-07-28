@@ -76,6 +76,7 @@ TEMPLATES = [
                 'marketplace.context_processor.get_cart_amounts',
                 'accounts.context_processors.get_google_api',
                 'accounts.context_processors.get_user_profile',
+                'accounts.context_processors.get_paypal_client_id',
                 
             ],
         },
@@ -174,6 +175,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <tester.gml.69@gmail.com'
 
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
 
 # authentication 
 
@@ -208,3 +210,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.environ['PATH'] = os.path.join(BASE_DIR, 'env/lib/python3.10/site-packages/osgeo') + ':' + os.environ['PATH']
 os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, '/usr/share/proj/') + ':' + os.environ['PATH']
 GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, '/usr/lib/', 'libgdal.so')
+
+#END OF GDAL SETTINGS
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
