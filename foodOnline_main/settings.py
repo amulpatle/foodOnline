@@ -176,7 +176,8 @@ DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <tester.gml.69@gmail.com'
 
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
-
+RZP_KEY_ID = config('RZP_KEY_ID')
+RZP_KEY_SECRET = config('RZP_KEY_SECRET')
 # authentication 
 
 # AUTHENTICATION_BACKENDS = (
