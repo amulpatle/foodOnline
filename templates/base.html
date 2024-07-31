@@ -48,6 +48,14 @@
      <!-- Include the PayPal JavaScript SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id={{PAYPAL_CLIENT_ID}}&currency=USD"></script>
 
+    <!-- datatable plugin -->
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css">
+    <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
+    <script>
+		$(document).ready( function () {
+			$('#myOrdersTable').DataTable();
+		} );
+	</script>
 
     <script src="{% static 'js/custom.js' %}"></script>
     

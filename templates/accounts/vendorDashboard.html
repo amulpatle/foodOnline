@@ -15,6 +15,7 @@
 							<div class="user-dashboard loader-holder">
 								<div class="user-holder">
 									<h5 class="text-uppercase">Overview</h5>
+									<p class="text-right">Logged in as : <small>{{user.email}}</small></p>
 									<div class="row">
 										<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 											<div class="card">
@@ -32,17 +33,17 @@
 													Total Revenue
 												</div>
 												<div class="card-body text-center">
-													<a href="#"><h5 class="card-title">$165.98</h5></a>
+													<a href="#"><h5 class="card-title">{{total_revenue | floatformat:2}}</h5></a>
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 											<div class="card">
 												<div class="card-header">
-													Total Month
+													This Month
 												</div>
 												<div class="card-body text-center">
-													<a href="#"><h5 class="card-title">$165.98</h5></a>
+													<a href="#"><h5 class="card-title">${{current_month_revenue | floatformat:2}}</h5></a>
 												</div>
 											</div>
 										</div>
