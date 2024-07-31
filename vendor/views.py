@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render,get_object_or_404,HttpResponse
 
 from menu.forms import CategoryForm,FoodItemForm
+from orders.models import Order, OrderedFood
 from .forms import VendorForm,OpeningHourForm
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
@@ -231,3 +232,23 @@ def remove_opening_hours(request,pk=None):
             hour = get_object_or_404(OpeningHour,pk=pk)
             hour.delete()
             return JsonResponse({'status':'success','id':pk})
+        
+
+def order_detail(request,order_number):
+    try:
+        order = Order.objects.get(order_number=order_number,is_ordered=True)
+        ordered_food = OrderedFood.objects.filter(order=order,fooditem__vendor=get_vendor(request))
+        print('reached')
+        print('reached')
+        print('reached')
+        context = {
+            'order':order,
+            'ordered_food':ordered_food,
+            'subtotal':order.get_total_by_vendor()['subtotal'],
+            'tax_data':order.get_total_by_vendor()['tax_dict'],
+            'grand_total':order.get_total_by_vendor()['grand_total'],
+        }
+        print("also reached here")
+    except:
+        return redirect('vendor')
+    return render(request,'vendor/order_detail.html',context)
