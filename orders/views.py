@@ -137,7 +137,7 @@ def payments(request):
             status = status
         )
         payment.save()
-        print('complete-1')
+        
         # UPDATE THE ORDER MODEL
         order.payment = payment
         order.is_ordered = True
@@ -145,7 +145,7 @@ def payments(request):
 
         # MOVE THE CART ITEMS TO ORDERED FOOD MODEL
         cart_items = Cart.objects.filter(user=request.user)
-        print('complete-2')
+        
         for item in cart_items:
             ordered_food = OrderedFood()
             ordered_food.order = order
@@ -176,7 +176,7 @@ def payments(request):
             'tax_data': tax_data,
         }
         send_notification(mail_subject, mail_template, context)
-        print('complete-3')
+        
 
 
         # SEND ORDER RECEIVED EMAIL TO THE VENDOR
@@ -188,7 +188,6 @@ def payments(request):
                 to_emails.append(i.fooditem.vendor.user.email)
 
                 ordered_food_to_vendor = OrderedFood.objects.filter(order=order, fooditem__vendor=i.fooditem.vendor)
-                print(ordered_food_to_vendor)
 
         
                 context = {
@@ -209,7 +208,7 @@ def payments(request):
             'order_number': order_number,
             'transaction_id': transaction_id,
         }
-        print('complete-4')
+        
         return JsonResponse(response)
     return HttpResponse('Payments view')
 
@@ -227,7 +226,7 @@ def order_complete(request):
             subtotal += (item.price * item.quantity)
 
         tax_data = json.loads(order.tax_data)
-        print(tax_data)
+       
         context = {
             'order': order,
             'ordered_food': ordered_food,

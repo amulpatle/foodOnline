@@ -40,7 +40,7 @@ def registerUser(request):
         messages.warning(request,'Yor are already logged in')
         return redirect('custDashboard')
     elif request.method == 'POST':
-        print(request.POST)
+        
         form = UserForm(request.POST)
         if form.is_valid():
             # user = form.save(commit=False)
@@ -63,7 +63,7 @@ def registerUser(request):
             messages.success(request,'Your account has been regstered successfully') 
             return redirect('registerUser')
         else:
-            print('invalid form')
+           
             print(form.errors)
     else:
         form = UserForm()
@@ -107,7 +107,7 @@ def registerVendor(request):
             messages.success(request,'Your account has been regstered successfully! Please wait for the approval')
             return redirect('registerVendor')
         else:
-            print("invalid form")
+            
             print(form.errors)
     
     else:
@@ -149,7 +149,7 @@ def login(request):
         return redirect('myAccount')
     
     elif request.method == 'POST':
-        # print(request.POST)
+        
         email = request.POST['email']
         password = request.POST['password']
         
@@ -225,7 +225,7 @@ def forgot_password(request):
             
             send_verification_email(request,user,mail_subject,email_template)
             messages.success(request,'Password reset link has beed sent to your email address.')
-            # print(request.POST)
+            
             return redirect('login')
         else:
             messages.error(request,'Account does not exist.')

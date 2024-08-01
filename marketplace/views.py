@@ -143,7 +143,7 @@ def search(request):
         keyword = request.GET['keyword']
         
         fetch_vendors_by_fooditems = FoodItem.objects.filter(food_title__icontains=keyword,is_availabe=True).values_list('vendor',flat=True)
-        print(fetch_vendors_by_fooditems)
+        
         
         vendors = Vendor.objects.filter(Q(id__in=fetch_vendors_by_fooditems) | Q(vendor_name__icontains=keyword,is_approved=True,user__is_active=True))
         
