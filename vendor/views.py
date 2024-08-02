@@ -246,7 +246,7 @@ def order_detail(request,order_number):
             'tax_data':order.get_total_by_vendor()['tax_dict'],
             'grand_total':order.get_total_by_vendor()['grand_total'],
         }
-        print("also reached here")
+        
     except:
         return redirect('vendor')
     return render(request,'vendor/order_detail.html',context)
